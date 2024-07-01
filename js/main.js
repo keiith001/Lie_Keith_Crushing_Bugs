@@ -27,9 +27,17 @@ function handleDragOver(e) {
 
 function handleDrop(e) {
     e.preventDefault();
-    console.log("dropped something on me");
-    //this line moves the dragged piece from the left side of the board
-    //into whatever dropzone we choose.
+    console.log('Image dropped in this zone.')
+
+    // This Bug Fix is to make an error if user try to drop another image inside the dropzone
+    // It uses the return attribute to exit the function immediately upon the condition triggered
+    const droppedZone = e.currentTarget;
+    if (droppedZone.querySelector("img")) {
+        alert('ERROR! There is already an image placed here.')
+        console.log('ERROR! There is already an image placed here.');
+        return;
+    }
+    
     this.appendChild(draggedPiece);
 }
 
