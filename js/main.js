@@ -21,6 +21,10 @@ function changeBGImage() {
     });
 
     puzzleBoard.style.backgroundImage = `url(images/backGround${this.id}.jpg)`
+    puzzlePieces[0].src = `images/topLeft${this.id}.jpg`;
+    puzzlePieces[1].src = `images/bottomLeft${this.id}.jpg`;
+    puzzlePieces[2].src = `images/topRight${this.id}.jpg`;
+    puzzlePieces[3].src = `images/bottomRight${this.id}.jpg`;
 
     console.log("Puzzleboard Image changed to", this)
 }
