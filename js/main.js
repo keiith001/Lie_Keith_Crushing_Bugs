@@ -2,26 +2,36 @@
 const theButtons = document.querySelectorAll("#buttonHolder img"),
     puzzleBoard = document.querySelector(".puzzle-board"),
     puzzlePieces = document.querySelectorAll(".puzzle-pieces img"),
-    dropZones = document.querySelectorAll(".drop-zone");
-//store the dragged piece in a global variable
-//we will need it in the handleDrop function    
+    dropZones = document.querySelectorAll(".drop-zone"),
+    puzzlePiecesBox = document.querySelector(".puzzle-pieces"),
+    resetButton = document.querySelector("#resetBut");
 let draggedPiece;
 
 function changeBGImage() {
-    //console.log("changeBGImage called");
-    //url('../images/backGround0.jpg');
+    // Removing puzzle pieces from the puzzle board
+    dropZones.forEach((zone) => {
+        while (zone.firstChild) {
+          zone.removeChild(zone.firstChild);
+        }
+    });
+
+    // Moving back puzzle pieces from the puzzle board to the puzzle box
+    puzzlePieces.forEach((piece) => {
+        puzzlePiecesBox.appendChild(piece);
+    });
+
     puzzleBoard.style.backgroundImage = `url(images/backGround${this.id}.jpg)`
+
+    console.log("Puzzleboard Image changed to", this)
 }
 
 function handleStartDrag() {
-    //console.log("Started dragging this piece:", this)
+    console.log("Now dragging this piece:", this)
     draggedPiece = this;
 }
 
 function handleDragOver(e) {
     e.preventDefault();
-    //this will prevent the default dragover behaviour
-    //e is short for event, could be e, evt a well
     console.log("dragged over me");
 }
 
@@ -41,6 +51,22 @@ function handleDrop(e) {
     this.appendChild(draggedPiece);
 }
 
+function resetSequence () {
+    // Removing puzzle pieces from the puzzle board
+    dropZones.forEach((zone) => {
+        while (zone.firstChild) {
+          zone.removeChild(zone.firstChild);
+        }
+    });
+
+    // Moving back puzzle pieces from the puzzle board to the puzzle box
+    puzzlePieces.forEach((piece) => {
+        puzzlePiecesBox.appendChild(piece);
+    });
+
+    console.log('Sequence has been reset.')    
+}
+
 //event Listeners
 theButtons.forEach(button => button.addEventListener("click", changeBGImage)); 
 
@@ -49,3 +75,5 @@ puzzlePieces.forEach(piece => piece.addEventListener("dragstart", handleStartDra
 dropZones.forEach(zone => zone.addEventListener("dragover", handleDragOver));
 
 dropZones.forEach(zone => zone.addEventListener("drop", handleDrop));
+
+resetButton.addEventListener("click", resetSequence);
